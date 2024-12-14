@@ -9,41 +9,56 @@ open QuizApp.Model.LogIn
 open QuizApp.Forms // Import the namespace for navigation to other forms
 
 module MCQStudentForm =
-    let createStudentMCQForm (switchToWrittenQuestion : unit -> unit):Form =
-        let form = new Form(Text = "MCQ Questions", Width = 800, Height = 600)
+    let createStudentMCQForm (switchToWrittenQuestion : unit -> unit): Form =
+        let form = new Form(Text = "MCQ Questions", Width = 1000, Height = 800)  // Increased form size
 
         // UI Components
-        let questionLabel = new Label(Text = "Select an answer:", Top = 20, Left = 20, Width = 200)
-        let statusLabel = new Label(Text = "", Top = 500, Left = 20, Width = 500, ForeColor = System.Drawing.Color.Green)
-        let submitButton = new Button(Text = "Submit", Top = 350, Left = 550, Width = 100)
+        let questionLabel = new Label(Text = "Select an answer:", Top = 20, Left = 20, Width = 250)
+        questionLabel.Font <- new System.Drawing.Font("Arial", 14F)
+        
+        let statusLabel = new Label(Text = "", Top = 720, Left = 20, Width = 500, ForeColor = System.Drawing.Color.Green)
+        statusLabel.Font <- new System.Drawing.Font("Arial", 12F)
+
+        let submitButton = new Button(Text = "Submit", Width = 120, Height = 50)
+        submitButton.Font <- new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold)
+        submitButton.BackColor <- System.Drawing.Color.White
+        submitButton.ForeColor <- System.Drawing.Color.MidnightBlue
+        submitButton.FlatStyle <- FlatStyle.Flat
+        submitButton.FlatAppearance.BorderSize <- 0
+        submitButton.Top <- 700 // Position it at the bottom of the form
+        submitButton.Left <- (form.ClientSize.Width - submitButton.Width)  // Center the button
 
         let questions = MCQStudent.loadQuestions()
         
-        // Use List for mutable list of ComboBoxes
+
+
         let questionComboBoxes = new System.Collections.Generic.List<ComboBox>()
 
         let createQuestionComboBox (question: MCQ) (index: int) =
-            let panel = new Panel(Top = 60 + (index * 120), Left = 20, Width = 750, Height = 50)
+            let questionTextLabel = new Label(Text = question.Question, Top = 60 + (index * 120), Left = 20, Width = 950, Height = 40)
+            questionTextLabel.Font <- new System.Drawing.Font("Arial", 12F)
+            questionTextLabel.ForeColor <- System.Drawing.Color.DarkSlateGray
 
-            let questionTextLabel = new Label(Text = question.Question, Top = 5, Left = 0, Width = 600, Height = 20)
-
-            let comboBox = new ComboBox(Top = 25, Left = 0, Width = 200)
-            
-            comboBox.Items.AddRange(question.Options |> List.toArray |> Array.map box)  // Convert each string to 'obj'
-            comboBox.SelectedIndex <- -1  // Set default to no selection
-            panel.Controls.Add(questionTextLabel)
-            panel.Controls.Add(comboBox)
+            let comboBox = new ComboBox(Top = 100 + (index * 120), Left = 20, Width = 300)
+            comboBox.Items.AddRange(question.Options |> List.toArray |> Array.map box)  
+            comboBox.SelectedIndex <- -1  
+            comboBox.Font <- new System.Drawing.Font("Arial", 10F)
+            comboBox.ForeColor <- System.Drawing.Color.DarkSlateGray
+            comboBox.DropDownStyle <- ComboBoxStyle.DropDownList
 
             comboBox.SelectedIndexChanged.Add(fun _ -> 
                 MCQStudent.updateAnswer question.Question (comboBox.SelectedItem.ToString())
             )
 
-            panel, comboBox
+            form.Controls.Add(questionTextLabel)
+            form.Controls.Add(comboBox)
+
+            questionComboBoxes.Add(comboBox)
 
         let validateAnswers () =
             questionComboBoxes |> Seq.forall (fun comboBox -> comboBox.SelectedIndex <> -1)
 
-        // Function to calculate and display the score
+
         submitButton.Click.Add(fun _ -> 
             if validateAnswers() then
                 let score = MCQStudent.calculateScore questions
@@ -60,15 +75,20 @@ module MCQStudentForm =
                 statusLabel.ForeColor <- System.Drawing.Color.Red
         )
 
-
         questions |> List.iteri (fun index question -> 
-            let panel, comboBox = createQuestionComboBox question index
-            questionComboBoxes.Add(comboBox)
-            form.Controls.Add(panel)
+            createQuestionComboBox question index
         )
 
         form.Controls.Add(questionLabel)
         form.Controls.Add(statusLabel)
         form.Controls.Add(submitButton)
+
+        form.StartPosition <- FormStartPosition.CenterScreen
+        form.FormBorderStyle <- FormBorderStyle.None  
+        form.MaximizeBox <- true 
+        form.MinimizeBox <- true  // Disable minimize box
+        form.ShowIcon <- false
+        form.Width <- 1000  
+        form.Height <- 800  
 
         form
