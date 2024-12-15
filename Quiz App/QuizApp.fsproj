@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <OutputType>WinExe</OutputType>
+	  <TargetFramework>net8.0-windows</TargetFramework>
+	  <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Signup.fs" />
+		<Compile Include="Signupform.fs" />
+		<Compile Include="Login.fs" />
+		<Compile Include="LoginForm.fs" />
+		<Compile Include="leaderboard.fs" />
+		<Compile Include="leaderboard_form.fs" />
+		<Compile Include="WrittenQuestion_teacher.fs" />
+		<Compile Include="WrittenQuestion_teacher_form.fs" />
+		<Compile Include="MCQ_teacher.fs" />
+		<Compile Include="MCQ_teacher_form.fs" />
+		<Compile Include="MCQ_student.fs" />
+		<Compile Include="WrittenQuestion_student.fs" />
+		<Compile Include="scoreBoard.fs" />
+		<Compile Include="scoreBoard_form.fs" />
+		<Compile Include="WrittenQuestion_student_form.fs" />
+		<Compile Include="MCQ_student_form.fs" />
+	
+		<Compile Include="Program.fs" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <PackageReference Include="System.Reactive.Windows.Forms" Version="6.0.1" />
+  </ItemGroup>
+
+</Project>
