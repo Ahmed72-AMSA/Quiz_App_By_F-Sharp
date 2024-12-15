@@ -13,29 +13,31 @@ module WrittenTeacherQuestionForm =
         leaderboardForm.Show()
 
     let createExamForm (): Form = 
-        let form = new Form(Text = "Exam Application", Width = 400, Height = 500)
+        let form = new Form(Text = "Exam Application", Width = 500, Height = 600, StartPosition = FormStartPosition.CenterScreen, BackColor = Color.LightGray)
 
-        let questionLabel = new Label(Text = "Question: 'Write Name of Question to delete it if you want'", Top = 20, Left = 10, Width = 100)
-        let questionTextBox = new TextBox(Top = 20, Left = 120, Width = 250)
+        let headerLabel = new Label(Text = "Exam Question Manager", Top = 10, Left = 150, Width = 200, Font = new Font("Arial", 14.0f, FontStyle.Bold), ForeColor = Color.Navy)
 
-        let noteLabel = new Label(Text = "Note: Enter question name to delete if you wish", Top = 50, Left = 120, Width = 250, Font = new Font("Arial", 8.0f), ForeColor = Color.Red)
+        let questionLabel = new Label(Text = "Question:", Top = 60, Left = 20, Width = 100, Font = new Font("Arial", 10.0f))
+        let questionTextBox = new TextBox(Top = 60, Left = 130, Width = 320)
 
-        let answerLabel = new Label(Text = "Answer:", Top = 80, Left = 10, Width = 100)
-        let answerTextBox = new TextBox(Top = 80, Left = 120, Width = 250)
+        let noteLabel = new Label(Text = "Note: Enter question name to delete if you wish", Top = 90, Left = 130, Width = 320, Font = new Font("Arial", 9.0f, FontStyle.Italic), ForeColor = Color.DarkRed)
 
-        let markLabel = new Label(Text = "Mark:", Top = 120, Left = 10, Width = 100)
-        let markTextBox = new TextBox(Top = 120, Left = 120, Width = 250)
+        let answerLabel = new Label(Text = "Answer:", Top = 130, Left = 20, Width = 100, Font = new Font("Arial", 10.0f))
+        let answerTextBox = new TextBox(Top = 130, Left = 130, Width = 320)
 
-        let wordCountLabel = new Label(Text = "Word Count:", Top = 160, Left = 10, Width = 100)
-        let wordCountTextBox = new TextBox(Top = 160, Left = 120, Width = 250)
+        let markLabel = new Label(Text = "Mark:", Top = 170, Left = 20, Width = 100, Font = new Font("Arial", 10.0f))
+        let markTextBox = new TextBox(Top = 170, Left = 130, Width = 320)
 
-        let saveButton = new Button(Text = "Save", Top = 200, Left = 120)
-        let showButton = new Button(Text = "Show All", Top = 240, Left = 120)
-        let deleteButton = new Button(Text = "Delete", Top = 280, Left = 120) // New Delete Button
-        let leaderboardButton = new Button(Text = "Scores", Top = 320, Left = 120) // New Leaderboard Button
+        let wordCountLabel = new Label(Text = "Word Count:", Top = 210, Left = 20, Width = 100, Font = new Font("Arial", 10.0f))
+        let wordCountTextBox = new TextBox(Top = 210, Left = 130, Width = 320)
+
+        let saveButton = new Button(Text = "Save", Top = 270, Left = 130, Width = 100, BackColor = Color.LightBlue, Font = new Font("Arial", 10.0f))
+        let showButton = new Button(Text = "Show All", Top = 270, Left = 250, Width = 100, BackColor = Color.LightGreen, Font = new Font("Arial", 10.0f))
+        let deleteButton = new Button(Text = "Delete", Top = 320, Left = 130, Width = 100, BackColor = Color.LightCoral, Font = new Font("Arial", 10.0f))
+        let leaderboardButton = new Button(Text = "Scores", Top = 320, Left = 250, Width = 100, BackColor = Color.LightYellow, Font = new Font("Arial", 10.0f))
 
         // Add controls to the form
-        form.Controls.AddRange([| questionLabel; questionTextBox; noteLabel; answerLabel; answerTextBox; markLabel; markTextBox; wordCountLabel; wordCountTextBox; saveButton; showButton; deleteButton; leaderboardButton |])
+        form.Controls.AddRange([| headerLabel; questionLabel; questionTextBox; noteLabel; answerLabel; answerTextBox; markLabel; markTextBox; wordCountLabel; wordCountTextBox; saveButton; showButton; deleteButton; leaderboardButton |])
 
         // Save button click event
         saveButton.Click.Add(fun _ -> 
