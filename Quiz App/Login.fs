@@ -18,8 +18,8 @@ module LogIn =
     let mutable loggedInUserScore: int option = None
 
     // Define file paths for user data and final scores
-    let usersFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Users.json"
-    let finalScoresFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Final_Scores.json"
+    let usersFilePath = "Users.json"
+    let finalScoresFilePath = "Final_Scores.json"
 
     // Function to calculate the percentage score
     let calculatePercentageScore (realScore: int) (fullMarks: int) =

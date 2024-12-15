@@ -9,7 +9,7 @@ open System.Windows.Forms
 module Signup =
     type User = { Email: string; Password: string; Name: string; Type: string }
 
-    let jsonFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\users.json"
+    let jsonFilePath = "users.json"
 
     let loadUsers () =
         if File.Exists(jsonFilePath) then

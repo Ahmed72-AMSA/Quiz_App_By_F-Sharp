@@ -12,11 +12,11 @@ open MCQ_teacher
 module FinalScoreCalculator =
 
     // Define file paths for MCQ and Written question scores
-    let mcqScoreFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\MCQ_Scores.json"
-    let writtenScoreFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Written_Scores.json"
-    let mcqQuestionFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Questions.json"
-    let writtenQuestionFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\written_questions.json"
-    let finalScoreFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Final_Scores.json"  
+    let mcqScoreFilePath = "MCQ_Scores.json"
+    let writtenScoreFilePath = "Written_Scores.json"
+    let mcqQuestionFilePath = "Questions.json"
+    let writtenQuestionFilePath = "written_questions.json"
+    let finalScoreFilePath = "Final_Scores.json"  
 
     type WrittenScore = { Name: string; Score: int }
 

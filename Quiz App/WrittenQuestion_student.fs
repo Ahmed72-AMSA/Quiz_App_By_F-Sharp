@@ -20,8 +20,8 @@ module WrittenQuestionStudent =
         Mark: int
     }
 
-    let questionsFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\written_questions.json"
-    let scoresFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Written_Scores.json"
+    let questionsFilePath = "written_questions.json"
+    let scoresFilePath = "Written_Scores.json"
 
     // Load written questions
     let loadWrittenQuestions () =
