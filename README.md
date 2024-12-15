@@ -1,0 +1,1 @@
+This a Quiz App Application created totally by F# to handle creating the questions of the quiz as well as handling the data saved in a json files to save data as a good practice, so file path used locally considering publishing the project in a server or as an api in the future. 
