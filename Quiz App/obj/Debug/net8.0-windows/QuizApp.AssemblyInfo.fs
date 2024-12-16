@@ -10,7 +10,7 @@ open System.Reflection
 [<assembly: System.Reflection.AssemblyCompanyAttribute("QuizApp")>]
 [<assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")>]
 [<assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")>]
-[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7adcfe7fd417e97cc3e714cce1101c633726dee0")>]
+[<assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44c3621461b4c564cfe29311dca47315371c2336")>]
 [<assembly: System.Reflection.AssemblyProductAttribute("QuizApp")>]
 [<assembly: System.Reflection.AssemblyTitleAttribute("QuizApp")>]
 [<assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")>]

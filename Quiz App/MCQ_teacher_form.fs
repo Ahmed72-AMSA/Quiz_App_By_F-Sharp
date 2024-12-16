@@ -7,6 +7,8 @@ open System.IO
 open QuizApp.Model.MCQ_teacher
 
 module MCQForm =
+    let addControlsToForm (form: Form) (controls: Control list) =
+        controls |> List.iter (fun control -> form.Controls.Add(control))
 
     let createMCQForm () =
         let form = new Form(Text = "Create MCQ", Width = 900, Height = 700)
@@ -47,7 +49,6 @@ module MCQForm =
 
         let statusLabel = new Label(Text = "", Top = 640, Left = 20, Width = 820, ForeColor = System.Drawing.Color.Green, TextAlign = System.Drawing.ContentAlignment.MiddleCenter)
 
-        // Events
         let mutable questions = Map.empty<string, MCQ>
 
         let loadQuestions () =
@@ -162,12 +163,14 @@ module MCQForm =
             form.Show()
         )
 
-        // Adding Controls to the Form
-        form.Controls.Add(headerLabel)
-        form.Controls.Add(questionGroupBox)
-        form.Controls.Add(questionListBoxGroup)
-        form.Controls.Add(jsonQuestionListBoxGroup)
-        form.Controls.Add(actionsGroupBox)
-        form.Controls.Add(statusLabel)
+        addControlsToForm form [
+            headerLabel
+            questionGroupBox
+            questionListBoxGroup
+            jsonQuestionListBoxGroup
+            actionsGroupBox
+            statusLabel
+        ]
+
 
         form
