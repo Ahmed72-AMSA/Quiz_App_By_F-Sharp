@@ -13,6 +13,9 @@ module WrittenQuestionStudentForm =
         // Set a soft background color for the form
         form.BackColor <- System.Drawing.Color.FromArgb(245, 245, 245) // Light gray for a formal feel
 
+        let scrollPanel = new Panel(Top = 20, Left = 20, Width = 940, Height = 650)
+        scrollPanel.AutoScroll <- true  
+
         // Status label to show submission message
         let statusLabel = 
             new Label(Text = "", Top = 500, Left = 20, Width = 500, ForeColor = System.Drawing.Color.Green)
@@ -117,5 +120,7 @@ module WrittenQuestionStudentForm =
         // Add other controls to the form
         form.Controls.Add(statusLabel)
         form.Controls.Add(submitButton)
+        form.Controls.Add(scrollPanel)
+
 
         form
