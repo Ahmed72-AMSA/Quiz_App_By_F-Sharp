@@ -134,7 +134,7 @@ module MCQForm =
                 statusLabel.ForeColor <- System.Drawing.Color.Red
             | _ -> 
                 let questionText = selectedQuestion.ToString()
-                let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Questions.json"
+                let filePath = "Questions.json"
                 if File.Exists(filePath) then
                     let json = File.ReadAllText(filePath)
                     let questionsInJSON = JsonSerializer.Deserialize<MCQ list>(json)
