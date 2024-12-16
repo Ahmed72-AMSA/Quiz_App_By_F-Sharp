@@ -67,7 +67,7 @@ module LogIn =
                     nameInput.Clear()
                     passwordInput.Clear()
                     loggedInUserName <- Some user.Name
-                    loggedInUserScore <- Some (int percentage)  // Set score to display
+                    loggedInUserScore <- Some (int percentage)  
                 | None ->
                     // If no score is found, proceed with login and allow quiz attempt
                     statusLabel.Text <- "Login Successful! Welcome! You can now take the quiz."

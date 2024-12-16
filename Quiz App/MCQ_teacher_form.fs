@@ -48,14 +48,14 @@ module MCQForm =
         let statusLabel = new Label(Text = "", Top = 640, Left = 20, Width = 820, ForeColor = System.Drawing.Color.Green, TextAlign = System.Drawing.ContentAlignment.MiddleCenter)
 
         // Events
-        let mutable questions = System.Collections.Generic.HashSet<MCQ>()
+        let mutable questions = Map.empty<string, MCQ>
 
         let loadQuestions () =
             let filePath = "Questions.json"
             if File.Exists(filePath) then
                 let json = File.ReadAllText(filePath)
                 let loadedQuestions = JsonSerializer.Deserialize<MCQ list>(json)
-                loadedQuestions |> List.iter (fun q -> questions.Add(q) |> ignore)
+                loadedQuestions |> List.iter (fun q -> questions <- Map.add q.Question q questions)
                 jsonQuestionListBox.Items.Clear()
                 loadedQuestions |> List.iter (fun q -> jsonQuestionListBox.Items.Add(q.Question) |> ignore)
 
@@ -76,12 +76,12 @@ module MCQForm =
             elif options |> List.distinct |> List.length <> options.Length then
                 statusLabel.Text <- "Options must be unique."
                 statusLabel.ForeColor <- System.Drawing.Color.Red
-            elif questions |> Seq.exists (fun q -> q.Question = questionText) then
+            elif Map.containsKey questionText questions then
                 statusLabel.Text <- "This question already exists in the session."
                 statusLabel.ForeColor <- System.Drawing.Color.Red
             else
                 let mcq = { Question = questionText; Options = options; CorrectAnswer = correctAnswer }
-                questions.Add(mcq) |> ignore
+                questions <- Map.add questionText mcq questions
                 questionListBox.Items.Add(questionText) |> ignore
                 questionInput.Clear()
                 optionsInput.Clear()
@@ -91,15 +91,15 @@ module MCQForm =
         )
 
         finishButton.Click.Add(fun _ -> 
-            if questions.Count = 0 then
+            if Map.isEmpty questions then
                 statusLabel.Text <- "No questions to save. Add some questions first!"
                 statusLabel.ForeColor <- System.Drawing.Color.Red
             else
                 let filePath = "Questions.json"
-                let currentSessionQuestions = questions |> Seq.toList
-                let json = JsonSerializer.Serialize(currentSessionQuestions |> List.rev)
+                let currentSessionQuestions = questions |> Map.toList |> List.map snd |> List.rev
+                let json = JsonSerializer.Serialize(currentSessionQuestions)
                 File.WriteAllText(filePath, json)
-                questions.Clear()
+                questions <- Map.empty
                 questionListBox.Items.Clear()
                 jsonQuestionListBox.Items.Clear()
                 statusLabel.Text <- "All questions saved to 'Questions.json'!"
@@ -114,16 +114,10 @@ module MCQForm =
                 statusLabel.ForeColor <- System.Drawing.Color.Red
             | _ -> 
                 let questionText = selectedQuestion.ToString()
-                let questionToRemove = questions |> Seq.tryFind (fun q -> q.Question = questionText)
-                match questionToRemove with
-                | Some(mcq) -> 
-                    questions.Remove(mcq) |> ignore
-                    questionListBox.Items.Remove(selectedQuestion) |> ignore
-                    statusLabel.Text <- "Question removed from the current session."
-                    statusLabel.ForeColor <- System.Drawing.Color.Green
-                | None -> 
-                    statusLabel.Text <- "Selected question not found in the list."
-                    statusLabel.ForeColor <- System.Drawing.Color.Red
+                questions <- Map.remove questionText questions
+                questionListBox.Items.Remove(selectedQuestion) |> ignore
+                statusLabel.Text <- "Question removed from the current session."
+                statusLabel.ForeColor <- System.Drawing.Color.Green
         )
 
         removeFromJSONButton.Click.Add(fun _ -> 
@@ -141,7 +135,7 @@ module MCQForm =
                     let questionToRemove = questionsInJSON |> List.tryFind (fun q -> q.Question = questionText)
                     match questionToRemove with
                     | Some(mcq) -> 
-                        questions.Remove(mcq) |> ignore
+                        questions <- Map.remove questionText questions
                         let updatedQuestions = questionsInJSON |> List.filter (fun q -> q.Question <> questionText)
                         let updatedJson = JsonSerializer.Serialize(updatedQuestions)
                         File.WriteAllText(filePath, updatedJson)

@@ -13,7 +13,6 @@ module MCQStudent =
     // Record to represent a score entry
     type UserScore = { Name: string; Score: int }
 
-    // Load questions from the Questions.json file
     let loadQuestions () =
         if File.Exists(questionsFilePath) then
             let json = File.ReadAllText(questionsFilePath)
