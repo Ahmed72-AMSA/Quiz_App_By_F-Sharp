@@ -14,7 +14,7 @@ module WrittenQuestionTeacher =
     }
 
     let loadSavedQuestions () =
-        let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\written_questions.json"
+        let filePath = "written_questions.json"
         
         if File.Exists(filePath) then
             try
@@ -26,6 +26,6 @@ module WrittenQuestionTeacher =
             []
 
     let saveQuestions (questions: Question list) =
-        let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\written_questions.json"
+        let filePath = "written_questions.json"
         let json = JsonSerializer.Serialize(questions)
         File.WriteAllText(filePath, json)

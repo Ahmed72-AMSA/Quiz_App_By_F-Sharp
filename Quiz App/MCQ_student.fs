@@ -7,8 +7,8 @@ open QuizApp.Model.MCQ_teacher
 
 module MCQStudent =
     // Define file paths for questions and scores
-    let questionsFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Questions.json"
-    let scoresFilePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\MCQ_Scores.json"
+    let questionsFilePath = "Questions.json"
+    let scoresFilePath = "MCQ_Scores.json"
 
     // Record to represent a score entry
     type UserScore = { Name: string; Score: int }

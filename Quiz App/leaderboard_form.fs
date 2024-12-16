@@ -13,7 +13,7 @@ module LeaderBoardForm =
 
         try
             // Load and process the students
-            let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Final_Scores.json"
+            let filePath = "Final_Scores.json"
             let students = Leaderboard.loadStudentsFromFile filePath
 
             // Sort students by percentage in descending order

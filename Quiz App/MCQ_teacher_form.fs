@@ -51,7 +51,7 @@ module MCQForm =
         let mutable questions = System.Collections.Generic.HashSet<MCQ>()
 
         let loadQuestions () =
-            let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Questions.json"
+            let filePath = "Questions.json"
             if File.Exists(filePath) then
                 let json = File.ReadAllText(filePath)
                 let loadedQuestions = JsonSerializer.Deserialize<MCQ list>(json)
@@ -95,7 +95,7 @@ module MCQForm =
                 statusLabel.Text <- "No questions to save. Add some questions first!"
                 statusLabel.ForeColor <- System.Drawing.Color.Red
             else
-                let filePath = @"D:\studying section\projects\Programming Language 3\Quiz App\Quiz App\Questions.json"
+                let filePath = "Questions.json"
                 let currentSessionQuestions = questions |> Seq.toList
                 let json = JsonSerializer.Serialize(currentSessionQuestions |> List.rev)
                 File.WriteAllText(filePath, json)
